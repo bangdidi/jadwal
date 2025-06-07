@@ -1,32 +1,41 @@
-# Prerequisites
-*.d
+# Ignore Qt build files
+*.pro.user
+*.qmake.stash
+Makefile
+CMakeLists.txt.user
 
-# Compiled Object files
-*.slo
-*.lo
+# Ignore compiled binaries
 *.o
 *.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
+*.exe
+*.dll
 *.so
 *.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
 *.a
 *.lib
 
-# Executables
-*.exe
-*.out
-*.app
+# Ignore Qt Creator specific files
+*.creator*
+*.autosave
+
+# Ignore VS Code settings and build output
+.vscode/
+*.code-workspace
+
+# Ignore C++ debugging files
+*.pdb
+*.idb
+
+# Ignore CMake generated files
+CMakeCache.txt
+CMakeFiles/
+
+# Ignore build directories
+build/
+bin/
+out/
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+
