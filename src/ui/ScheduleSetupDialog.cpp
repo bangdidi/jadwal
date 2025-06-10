@@ -49,7 +49,7 @@ void ScheduleSetupDialog::handleGenerateClicked()
     if (!button) return;
 
     if (button == ui->buttonBacktrackingGenerate) {
-        m_algorithm = "BACKTRACKING";
+        m_selectedAlgorithm = "BACKTRACKING";
         m_config["timeout"] = ui->spinBacktrackingTimeout->value();
         m_config["forwardChecking"] = ui->checkboxBacktrackingForwardChecking->isChecked();
         m_config["variableOrdering"] = ui->comboBacktrackingVariableOrdering->currentText();
@@ -57,14 +57,14 @@ void ScheduleSetupDialog::handleGenerateClicked()
         m_config["enablePruning"] = ui->checkboxBacktrackingEnablePruning->isChecked();
         m_config["maxBacktracks"] = ui->spinBacktrackingMaxBacktracks->value();
     } else if (button == ui->buttonConstraintGenerate) {
-        m_algorithm = "CONSTRAINT";
+        m_selectedAlgorithm = "CONSTRAINT";
         m_config["timeout"] = ui->spinConstraintTimeout->value();
         m_config["variableOrdering"] = ui->comboConstraintVariableOrdering->currentText();
         m_config["valueOrdering"] = ui->comboConstraintValueOrdering->currentText();
         m_config["propagation"] = ui->comboConstraintPropagation->currentText();
         m_config["maxBacktracks"] = ui->spinConstraintMaxBacktracks->value();
     } else if (button == ui->buttonGeneticGenerate) {
-        m_algorithm = "GENETIC";
+        m_selectedAlgorithm = "GENETIC";
         m_config["timeout"] = ui->spinGeneticTimeout->value();
         m_config["populationSize"] = ui->spinGeneticPopulation->value();
         m_config["crossoverRate"] = ui->spinGeneticCrossover->value();
@@ -76,6 +76,16 @@ void ScheduleSetupDialog::handleGenerateClicked()
         m_config["fitnessFunction"] = ui->comboGeneticFitnessFunction->currentText();
     }
 
-    emit configurationReady(m_algorithm, m_config);
+    emit configurationReady(m_selectedAlgorithm, m_config);
     accept();
+}
+
+QString ScheduleSetupDialog::selectedAlgorithm() const
+{
+    return m_selectedAlgorithm; // Pastikan variabel ini ada dan di-set saat dialog Accepted
+}
+
+QVariantMap ScheduleSetupDialog::config() const
+{
+    return m_config;
 }

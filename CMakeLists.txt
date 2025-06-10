@@ -17,59 +17,18 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS
 # Cari semua source file
 file(GLOB_RECURSE SOURCES
     ${CMAKE_SOURCE_DIR}/main.cpp
+    ${CMAKE_SOURCE_DIR}/src/*.cpp
     ${CMAKE_SOURCE_DIR}/include/*.cpp
-    ${CMAKE_SOURCE_DIR}/src/core/*.cpp
-    ${CMAKE_SOURCE_DIR}/src/algorithms/*.cpp
-    ${CMAKE_SOURCE_DIR}/src/algorithms/backtracking/*.cpp
-    ${CMAKE_SOURCE_DIR}/src/algorithms/constraint/*.cpp
-    ${CMAKE_SOURCE_DIR}/src/algorithms/genetic/*.cpp
-    ${CMAKE_SOURCE_DIR}/src/data/*.cpp
-    ${CMAKE_SOURCE_DIR}/src/data/entities/*.cpp
-    ${CMAKE_SOURCE_DIR}/src/data/repositories/*.cpp
-    ${CMAKE_SOURCE_DIR}/src/data/dtos/*.cpp
-    ${CMAKE_SOURCE_DIR}/src/io/*.cpp
-    ${CMAKE_SOURCE_DIR}/src/io/reader/*.cpp
-    ${CMAKE_SOURCE_DIR}/src/io/writer/*.cpp
-    ${CMAKE_SOURCE_DIR}/src/ui/*.cpp
-    ${CMAKE_SOURCE_DIR}/src/ui/subject/*.cpp
-    ${CMAKE_SOURCE_DIR}/src/ui/teacher/*.cpp
-    ${CMAKE_SOURCE_DIR}/src/ui/classroom/*.cpp
-    ${CMAKE_SOURCE_DIR}/src/ui/timeslot/*.cpp
-    ${CMAKE_SOURCE_DIR}/src/ui/preferred/*.cpp
-    ${CMAKE_SOURCE_DIR}/src/ui/unavailable/*.cpp
-    ${CMAKE_SOURCE_DIR}/src/ui/schedule/*.cpp
-    ${CMAKE_SOURCE_DIR}/src/utils/*.cpp
 )
 
 # Cari semua header file
 file(GLOB_RECURSE HEADERS
     ${CMAKE_SOURCE_DIR}/include/*.h
-    ${CMAKE_SOURCE_DIR}/include/core/*.h
-    ${CMAKE_SOURCE_DIR}/include/algorithms/*.h
-    ${CMAKE_SOURCE_DIR}/include/algorithms/backtracking/*.h
-    ${CMAKE_SOURCE_DIR}/include/algorithms/constraint/*.h
-    ${CMAKE_SOURCE_DIR}/include/algorithms/genetic/*.h
-    ${CMAKE_SOURCE_DIR}/include/data/*.h
-    ${CMAKE_SOURCE_DIR}/include/data/entities/*.h
-    ${CMAKE_SOURCE_DIR}/include/data/repositories/*.h
-    ${CMAKE_SOURCE_DIR}/include/data/dtos/*.h
-    ${CMAKE_SOURCE_DIR}/include/io/*.h
-    ${CMAKE_SOURCE_DIR}/include/io/reader/*.h
-    ${CMAKE_SOURCE_DIR}/include/io/writer/*.h
-    ${CMAKE_SOURCE_DIR}/include/ui/*.h
-    ${CMAKE_SOURCE_DIR}/include/ui/subject/*.h
-    ${CMAKE_SOURCE_DIR}/include/ui/teacher/*.h
-    ${CMAKE_SOURCE_DIR}/include/ui/classroom/*.h
-    ${CMAKE_SOURCE_DIR}/include/ui/timeslot/*.h
-    ${CMAKE_SOURCE_DIR}/include/ui/preferred/*.h
-    ${CMAKE_SOURCE_DIR}/include/ui/unavailable/*.h
-    ${CMAKE_SOURCE_DIR}/include/ui/schedule/*.h
-    ${CMAKE_SOURCE_DIR}/include/utils/*.h
 )
 
 # File UI
 file(GLOB UI_FILES
-    ${CMAKE_SOURCE_DIR}resources/ui/*.ui
+    ${CMAKE_SOURCE_DIR}/resources/ui/*.ui
 )
 
 # Temukan Qt5 dan pastikan modul yg dibutuhkan tersedia
@@ -94,26 +53,9 @@ add_executable(
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_BINARY_DIR}        # Untuk header hasil autouic (ui_*.h)
     ${CMAKE_SOURCE_DIR}/include
+    ${CMAKE_SOURCE_DIR}/include/ui
     ${CMAKE_SOURCE_DIR}/include/core
     ${CMAKE_SOURCE_DIR}/include/algorithms
-    ${CMAKE_SOURCE_DIR}/include/algorithms/backtracking
-    ${CMAKE_SOURCE_DIR}/include/algorithms/constraint
-    ${CMAKE_SOURCE_DIR}/include/algorithms/genetic
-    ${CMAKE_SOURCE_DIR}/include/data
-    ${CMAKE_SOURCE_DIR}/include/data/entities
-    ${CMAKE_SOURCE_DIR}/include/data/repositories
-    ${CMAKE_SOURCE_DIR}/include/data/dtos
-    ${CMAKE_SOURCE_DIR}/include/io
-    ${CMAKE_SOURCE_DIR}/include/io/reader
-    ${CMAKE_SOURCE_DIR}/include/io/writer
-    ${CMAKE_SOURCE_DIR}/include/ui
-    ${CMAKE_SOURCE_DIR}/include/ui/subject
-    ${CMAKE_SOURCE_DIR}/include/ui/teacher
-    ${CMAKE_SOURCE_DIR}/include/ui/classroom
-    ${CMAKE_SOURCE_DIR}/include/ui/timeslot
-    ${CMAKE_SOURCE_DIR}/include/ui/preferred
-    ${CMAKE_SOURCE_DIR}/include/ui/unavailable
-    ${CMAKE_SOURCE_DIR}/include/ui/schedule
     ${CMAKE_SOURCE_DIR}/include/utils
 )
 

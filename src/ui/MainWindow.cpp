@@ -32,6 +32,12 @@ MainWindow::MainWindow(ApplicationManager *appManager, QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    // Pastikan dialog progres dihapus jika masih ada
+    if (m_progressDialog) {
+        m_progressDialog->close();
+        delete m_progressDialog;
+        m_progressDialog = nullptr;
+    }
     delete ui;
 }
 
@@ -60,66 +66,63 @@ void MainWindow::on_actionSetting_triggered()
 
 void MainWindow::on_actionGenerate_triggered()
 {
-    ScheduleSetupDialog dialog(this);
-    connect(&dialog, &ScheduleSetupDialog::configurationReady,
-            this, &MainWindow::onConfigurationReady);
-    dialog.exec();
+    // Dialog setup konfigurasi penjadwalan
+    ScheduleSetupDialog setupDialog(this);
+    if (setupDialog.exec() == QDialog::Accepted) {
+        QString algorithm = setupDialog.selectedAlgorithm();
+        QVariantMap config = setupDialog.config();
+
+        onConfigurationReady(algorithm, config);
+    }
 }
 
 void MainWindow::onConfigurationReady(const QString &algorithm, const QVariantMap &config)
 {
+    // Pastikan dialog progres lama dihapus sebelum membuat baru
     if (m_progressDialog) {
-        m_progressDialog->deleteLater();
+        m_progressDialog->close();
+        delete m_progressDialog;
         m_progressDialog = nullptr;
     }
 
     m_progressDialog = new ScheduleProgressDialog(this);
 
-    // Hubungkan progress dan log
-    connect(m_scheduler, &Scheduler::progressUpdated,
-            m_progressDialog, &ScheduleProgressDialog::updateProgress);
-    connect(m_scheduler, &Scheduler::logEmitted,
-            m_progressDialog, &ScheduleProgressDialog::appendLogMessage);
+    // Hubungkan sinyal progres dan log ke dialog
+    connect(m_scheduler, &Scheduler::progressUpdated, m_progressDialog, &ScheduleProgressDialog::updateProgress);
+    connect(m_scheduler, &Scheduler::logEmitted, m_progressDialog, &ScheduleProgressDialog::appendLogMessage);
 
-    // Hubungkan tombol Cancel
-    connect(m_progressDialog, &ScheduleProgressDialog::cancelRequested,
-            m_scheduler, &Scheduler::cancel, Qt::DirectConnection);
+    // Hubungkan cancel dari dialog ke scheduler
+    connect(m_progressDialog, &ScheduleProgressDialog::cancelRequested, m_scheduler, &Scheduler::cancel);
 
-    // Tampilkan dialog saat proses mulai
-    connect(m_scheduler, &Scheduler::started, this, [this]() {
-        m_progressDialog->show();
+    // Hubungkan selesai dialog ke MainWindow
+    connect(m_progressDialog, &ScheduleProgressDialog::dialogFinished, this, [this](bool success) {
+        // Tampilkan notifikasi sesuai status
+        if (!success) {
+            QMessageBox::information(this, tr("Penjadwalan"), tr("Penjadwalan dibatalkan atau gagal."));
+        } else {
+            QMessageBox::information(this, tr("Penjadwalan"), tr("Penjadwalan selesai."));
+        }
+        // Hapus dialog progres setelah selesai
+        if (m_progressDialog) {
+            m_progressDialog->close();
+            m_progressDialog->deleteLater();
+            m_progressDialog = nullptr;
+        }
     });
 
-    // Tunggu hasil dari Scheduler
+    // Hubungkan selesai scheduler ke dialog progres
     connect(m_scheduler, &Scheduler::scheduleFinished, m_progressDialog, &ScheduleProgressDialog::onFinished);
 
-    // Dialog selesai, tampilkan notifikasi dan bersihkan
-    connect(m_progressDialog, &ScheduleProgressDialog::dialogFinished,
-            this, [this](bool success) {
-        if (success) {
-            QMessageBox::information(this, tr("Success"), tr("Schedule successfully generated."));
-            ui->tabWidget->setCurrentWidget(ui->tabSchedule);
-        } else {
-            QMessageBox::warning(this, tr("Cancelled"), tr("Schedule generation cancelled or failed."));
-        }
+    m_progressDialog->show();
 
-        m_progressDialog->deleteLater();
-        m_progressDialog = nullptr;
-    });
-
+    // Mulai proses penjadwalan
     m_scheduler->start(algorithm, config);
 }
 
 void MainWindow::onScheduleFinished(bool success)
 {
-    /*
-    if (success) {
-        QMessageBox::information(this, tr("Success"), tr("Schedule successfully generated."));
-        ui->tabWidget->setCurrentWidget(ui->tabSchedule);
-    } else {
-        QMessageBox::warning(this, tr("Cancelled"), tr("Schedule generation cancelled or failed."));
-    }
-    */
+    // Slot ini dipanggil saat scheduler selesai, bisa digunakan untuk update UI lain jika perlu
+    // Tidak perlu menghapus dialog progres di sini, sudah diatur di lambda dialogFinished
 }
 
 void MainWindow::on_actionAbout_triggered()

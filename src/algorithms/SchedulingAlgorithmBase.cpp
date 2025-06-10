@@ -12,12 +12,12 @@ SchedulingAlgorithmBase::~SchedulingAlgorithmBase()
 void SchedulingAlgorithmBase::init(const QVariantMap &config)
 {
     m_config = config;
-    m_cancelled.store(false);
+    m_cancelled.store(false); // Reset status cancel setiap inisialisasi
 }
 
 void SchedulingAlgorithmBase::requestCancel()
 {
-    m_cancelled.store(true);
+    m_cancelled.store(true); // Tandai proses agar dibatalkan (thread-safe)
 }
 
 bool SchedulingAlgorithmBase::isCancelled() const

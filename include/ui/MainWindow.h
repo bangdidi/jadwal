@@ -49,7 +49,7 @@ private:
     Ui::MainWindow *ui;
     ApplicationManager *m_appManager;
     Scheduler *m_scheduler;
-    ScheduleProgressDialog *m_progressDialog = nullptr;
+    ScheduleProgressDialog *m_progressDialog = nullptr; // Dialog progres, pastikan selalu dihapus setelah selesai
 };
 
 #endif // MAINWINDOW_H

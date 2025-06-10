@@ -3,16 +3,17 @@
 
 #include "SchedulingAlgorithmBase.h"
 
+// Algoritma penjadwalan berbasis genetic (atau simulasi backtracking)
 class GeneticAlgorithm : public SchedulingAlgorithmBase
 {
     Q_OBJECT
 
 public:
     explicit GeneticAlgorithm(QObject *parent = nullptr);
-    void run() override;
+    void run() override; // Implementasi utama algoritma
 
 private:
-    bool backtrack(int step);
+    bool backtrack(int step); // Fungsi bantu (simulasi proses)
 };
 
 #endif // GENETICALGORITHM_H

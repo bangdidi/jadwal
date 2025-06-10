@@ -7,6 +7,7 @@
 
 class SchedulingAlgorithmBase;
 
+// Scheduler bertugas menjalankan algoritma penjadwalan di thread terpisah
 class Scheduler : public QObject
 {
     Q_OBJECT
@@ -28,8 +29,8 @@ private slots:
     void handleFinished();
 
 private:
-    SchedulingAlgorithmBase *m_worker = nullptr;
-    QThread *m_thread = nullptr;
+    SchedulingAlgorithmBase *m_worker = nullptr; // Worker algoritma yang sedang berjalan
+    QThread *m_thread = nullptr;                 // Thread tempat worker dijalankan
 
     SchedulingAlgorithmBase* createAlgorithm(const QString &name);
     void cleanUp();

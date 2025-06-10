@@ -5,6 +5,7 @@
 #include <QSettings>
 #include <QTranslator>
 
+// Manajer aplikasi untuk konfigurasi global, bahasa, dan pengaturan
 class ApplicationManager : public QObject
 {
     Q_OBJECT

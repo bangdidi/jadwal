@@ -34,7 +34,7 @@ bool GeneticAlgorithm::backtrack(int step)
 
     emit progressChanged(step);
     emit logMessage(QString("Trying step %1...").arg(step));
-    QThread::msleep(30);
+    QThread::msleep(30); // Simulasi proses
 
     if (backtrack(step + 1)) {
         return true;

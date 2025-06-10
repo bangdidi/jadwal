@@ -16,6 +16,9 @@ public:
     explicit ScheduleSetupDialog(QWidget *parent = nullptr);
     ~ScheduleSetupDialog();
 
+    QString selectedAlgorithm() const;
+    QVariantMap config() const;
+
 signals:
     void configurationReady(const QString &algorithm, const QVariantMap &config);
 
@@ -25,7 +28,7 @@ private slots:
 
 private:
     Ui::ScheduleSetupDialog *ui;
-    QString m_algorithm;
+    QString m_selectedAlgorithm;
     QVariantMap m_config;
 };
 
