@@ -1,0 +1,87 @@
+#include "Scheduler.h"
+#include "BacktrackingAlgorithm.h"
+#include "ConstraintPropagationAlgorithm.h"
+#include "GeneticAlgorithm.h"
+#include "SchedulingAlgorithmBase.h"
+
+Scheduler::Scheduler(QObject *parent)
+    : QObject(parent)
+{}
+
+Scheduler::~Scheduler()
+{
+    cleanUp();
+}
+
+void Scheduler::start(const QString &algorithm, const QVariantMap &config)
+{
+    if (m_thread) {
+        m_thread->quit();
+        m_thread->wait();
+        delete m_thread;
+        m_thread = nullptr;
+    }
+
+    delete m_worker;
+    m_worker = nullptr;
+
+    if (algorithm == "GENETIC") {
+        m_worker = new GeneticAlgorithm;
+    } else {
+        emit scheduleFinished(false);
+        return;
+    }
+
+    m_worker->init(config);
+
+    m_thread = new QThread;
+    m_worker->moveToThread(m_thread);
+
+    connect(m_thread, &QThread::started, m_worker, &SchedulingAlgorithmBase::run);
+    connect(m_worker, &SchedulingAlgorithmBase::progressChanged, this, &Scheduler::progressUpdated);
+    connect(m_worker, &SchedulingAlgorithmBase::logMessage, this, &Scheduler::logEmitted);
+    connect(m_worker, &SchedulingAlgorithmBase::finished, m_thread, &QThread::quit);
+    connect(m_worker, &SchedulingAlgorithmBase::finished, this, [this]() {
+        emit scheduleFinished(!m_worker->isCancelled());
+    });
+
+    connect(m_thread, &QThread::finished, m_worker, &QObject::deleteLater);
+    connect(m_thread, &QThread::finished, m_thread, &QObject::deleteLater);
+
+    emit started();
+    m_thread->start();
+}
+
+void Scheduler::cancel()
+{
+    if (m_worker)
+        m_worker->requestCancel();
+}
+
+void Scheduler::handleFinished()
+{
+    emit scheduleFinished(m_worker && !m_worker->isCancelled());
+    m_thread->quit();
+}
+
+SchedulingAlgorithmBase* Scheduler::createAlgorithm(const QString &name)
+{
+    if (name == "BACKTRACKING")
+        return new BacktrackingAlgorithm;
+    else if (name == "CONSTRAINT")
+        return new ConstraintPropagationAlgorithm;
+    else if (name == "GENETIC")
+        return new GeneticAlgorithm;
+    return nullptr;
+}
+
+void Scheduler::cleanUp()
+{
+    if (m_thread && m_thread->isRunning()) {
+        cancel();
+        m_thread->quit();
+        m_thread->wait();
+    }
+    m_worker = nullptr;
+    m_thread = nullptr;
+}

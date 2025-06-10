@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+    <class>ScheduleProgressDialog</class>
+    <widget class="QDialog" name="ScheduleProgressDialog">
+        <property name="windowTitle">
+            <string>Progress</string>
+        </property>
+        <layout class="QVBoxLayout">
+            <item>
+                <widget class="QProgressBar" name="progressBar">
+                    <property name="minimum">
+                        <number>0</number>
+                    </property>
+                    <property name="maximum">
+                        <number>100</number>
+                    </property>
+                </widget>
+            </item>
+            <item>
+                <widget class="QTextEdit" name="textEditLog">
+                    <property name="readOnly">
+                        <bool>true</bool>
+                    </property>
+                </widget>
+            </item>
+            <item>
+                <layout class="QHBoxLayout">
+                    <item>
+                        <spacer name="horizontalSpacer">
+                            <property name="orientation">
+                                <enum>Qt::Horizontal</enum>
+                            </property>
+                        </spacer>
+                    </item>
+                    <item>
+                        <widget class="QPushButton" name="buttonCancel">
+                            <property name="text">
+                                <string>Cancel</string>
+                            </property>
+                        </widget>
+                    </item>
+                </layout>
+            </item>
+        </layout>
+    </widget>
+    <resources />
+    <connections />
+</ui>

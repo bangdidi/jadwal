@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+    <class>SubjectPage</class>
+    <widget class="QWidget" name="SubjectPage">
+        <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+                <widget class="QTableWidget" name="tableSubjects">
+                    <column>
+                        <property name="text">
+                            <string>Code</string>
+                        </property>
+                    </column>
+                    <column>
+                        <property name="text">
+                            <string>Name</string>
+                        </property>
+                    </column>
+                    <column>
+                        <property name="text">
+                            <string>Credits</string>
+                        </property>
+                    </column>
+                </widget>
+            </item>
+            <item>
+                <layout class="QHBoxLayout" name="horizontalLayout">
+                    <item>
+                        <widget class="QPushButton" name="buttonAdd">
+                            <property name="text">
+                                <string>Add</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item>
+                        <widget class="QPushButton" name="buttonEdit">
+                            <property name="text">
+                                <string>Edit</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item>
+                        <widget class="QPushButton" name="buttonDelete">
+                            <property name="text">
+                                <string>Delete</string>
+                            </property>
+                        </widget>
+                    </item>
+                </layout>
+            </item>
+        </layout>
+    </widget>
+    <resources />
+    <connections />
+</ui>

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+    <class>MainWindow</class>
+    <widget class="QMainWindow" name="MainWindow">
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>900</width>
+                <height>600</height>
+            </rect>
+        </property>
+        <property name="windowTitle">
+            <string>MainWindow</string>
+        </property>
+
+        <!-- tabs -->
+        <widget class="QWidget" name="centralwidget">
+            <layout class="QVBoxLayout">
+                <item>
+                    <widget class="QTabWidget" name="tabWidget">
+                        <property name="currentIndex">
+                            <number>0</number>
+                        </property>
+                        <widget class="QWidget" name="tabSubject">
+                            <attribute name="title">
+                                <string>Subject</string>
+                            </attribute>
+                            <layout class="QVBoxLayout">
+                                <item>
+                                    <widget class="QStackedWidget" name="stackedWidgetSubject" />
+                                </item>
+                            </layout>
+                        </widget>
+                        <widget class="QWidget" name="tabTeacher">
+                            <attribute name="title">
+                                <string>Teacher</string>
+                            </attribute>
+                            <layout class="QVBoxLayout">
+                                <item>
+                                    <widget class="QStackedWidget" name="stackedWidgetTeacher" />
+                                </item>
+                            </layout>
+                        </widget>
+                        <widget class="QWidget" name="tabClassroom">
+                            <attribute name="title">
+                                <string>Classroom</string>
+                            </attribute>
+                            <layout class="QVBoxLayout">
+                                <item>
+                                    <widget class="QStackedWidget" name="stackedWidgetClassroom" />
+                                </item>
+                            </layout>
+                        </widget>
+                        <widget class="QWidget" name="tabClassroomSubject">
+                            <attribute name="title">
+                                <string>Classroom's Subject</string>
+                            </attribute>
+                            <layout class="QVBoxLayout">
+                                <item>
+                                    <widget class="QStackedWidget" name="stackedWidgetClassroomSubject" />
+                                </item>
+                            </layout>
+                        </widget>
+                        <widget class="QWidget" name="tabTimeslot">
+                            <attribute name="title">
+                                <string>Timeslot</string>
+                            </attribute>
+                            <layout class="QVBoxLayout">
+                                <item>
+                                    <widget class="QStackedWidget" name="stackedWidgetTimeslot" />
+                                </item>
+                            </layout>
+                        </widget>
+                        <widget class="QWidget" name="tabPreferredTime">
+                            <attribute name="title">
+                                <string>Preferred Time</string>
+                            </attribute>
+                            <layout class="QVBoxLayout">
+                                <item>
+                                    <widget class="QStackedWidget" name="stackedWidgetPreferredTime" />
+                                </item>
+                            </layout>
+                        </widget>
+                        <widget class="QWidget" name="tabUnavailableTime">
+                            <attribute name="title">
+                                <string>Unavailable Time</string>
+                            </attribute>
+                            <layout class="QVBoxLayout">
+                                <item>
+                                    <widget class="QStackedWidget" name="stackedWidgetUnavailableTime" />
+                                </item>
+                            </layout>
+                        </widget>
+
+                        <widget class="QWidget" name="tabSchedule">
+                            <attribute name="title">
+                                <string>Schedule</string>
+                            </attribute>
+                            <layout class="QVBoxLayout">
+                                <item>
+                                    <widget class="QStackedWidget" name="stackedWidgetSchedule" />
+                                </item>
+                            </layout>
+                        </widget>
+                    </widget>
+                </item>
+            </layout>
+        </widget>
+
+        <!-- menu structure -->
+        <widget class="QMenuBar" name="menubar">
+            <property name="geometry">
+                <rect>
+                    <x>0</x>
+                    <y>0</y>
+                    <width>800</width>
+                    <height>24</height>
+                </rect>
+            </property>
+            <widget class="QMenu" name="menuProject">
+                <property name="title">
+                    <string>Project</string>
+                </property>
+                <addaction name="actionNewProject" />
+                <addaction name="actionOpenProject" />
+                <addaction name="actionSaveProject" />
+                <addaction name="actionSaveProjectAs" />
+                <addaction name="separator" />
+                <addaction name="actionSetting" />
+                <addaction name="actionExit" />
+            </widget>
+            <widget class="QMenu" name="menuData">
+                <property name="title">
+                    <string>Data</string>
+                </property>
+                <addaction name="actionImport" />
+                <addaction name="separator" />
+                <addaction name="actionSubject" />
+                <addaction name="actionTeacher" />
+                <addaction name="actionClassroom" />
+                <addaction name="actionClassroomSubject" />
+                <addaction name="actionTimeslot" />
+                <addaction name="actionPreferredTime" />
+                <addaction name="actionUnavailableTime" />
+            </widget>
+            <widget class="QMenu" name="menuSchedule">
+                <property name="title">
+                    <string>Schedule</string>
+                </property>
+                <addaction name="actionGenerate" />
+            </widget>
+            <widget class="QMenu" name="menuHelp">
+                <property name="title">
+                    <string>Help</string>
+                </property>
+                <addaction name="actionAbout" />
+            </widget>
+            <addaction name="menuProject" />
+            <addaction name="menuData" />
+            <addaction name="menuSchedule" />
+            <addaction name="menuHelp" />
+        </widget>
+
+        <!-- status bar -->
+        <widget class="QStatusBar" name="statusbar" />
+
+        <!-- actions -->
+        <action name="actionNewProject">
+            <property name="text">
+                <string>New Project</string>
+            </property>
+        </action>
+        <action name="actionOpenProject">
+            <property name="text">
+                <string>Open Project</string>
+            </property>
+        </action>
+        <action name="actionSaveProject">
+            <property name="text">
+                <string>Save Project</string>
+            </property>
+        </action>
+        <action name="actionSaveProjectAs">
+            <property name="text">
+                <string>Save Project as</string>
+            </property>
+        </action>
+        <action name="actionSetting">
+            <property name="text">
+                <string>Setting</string>
+            </property>
+        </action>
+        <action name="actionExit">
+            <property name="text">
+                <string>Exit</string>
+            </property>
+        </action>
+        <action name="actionImport">
+            <property name="text">
+                <string>Import</string>
+            </property>
+        </action>
+        <action name="actionSubject">
+            <property name="text">
+                <string>Subject</string>
+            </property>
+        </action>
+        <action name="actionTeacher">
+            <property name="text">
+                <string>Teacher</string>
+            </property>
+        </action>
+        <action name="actionClassroom">
+            <property name="text">
+                <string>Classroom</string>
+            </property>
+        </action>
+        <action name="actionClassroomSubject">
+            <property name="text">
+                <string>Classroom's Subject</string>
+            </property>
+        </action>
+        <action name="actionTimeslot">
+            <property name="text">
+                <string>Timeslot</string>
+            </property>
+        </action>
+        <action name="actionPreferredTime">
+            <property name="text">
+                <string>Preferred Time</string>
+            </property>
+        </action>
+        <action name="actionUnavailableTime">
+            <property name="text">
+                <string>Unavailable Time</string>
+            </property>
+        </action>
+        <action name="actionGenerate">
+            <property name="text">
+                <string>Generate</string>
+            </property>
+        </action>
+        <action name="actionAbout">
+            <property name="text">
+                <string>About</string>
+            </property>
+        </action>
+    </widget>
+    <resources />
+    <connections />
+</ui>
